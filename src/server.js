@@ -4,7 +4,7 @@ const { Dealer } = require("./Dealer")
 const { Scheduler } = require("./Scheduler")
 
 const scheduler = new Scheduler({
-    cardsTeam: [
+    "CARD": [
         new Dealer({
             log: console.log,
             id: "Carlos",
@@ -24,7 +24,7 @@ const scheduler = new Scheduler({
             delayRange: [100, 1001]
         })
     ],
-    lendingTeam: [
+    "LENDING": [
         new Dealer({
             log: console.log,
             id: "Josefino",
@@ -38,7 +38,7 @@ const scheduler = new Scheduler({
             delayRange: [0, 1000]
         })
     ],
-    otherTeam: [
+    "OTHER": [
         new Dealer({
             log: console.log,
             id: "Eduardo",

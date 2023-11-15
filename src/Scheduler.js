@@ -1,16 +1,16 @@
-class Scheduler {
-    constructor(attrs = {
-        cardsTeam: [],
-        lendingTeam: [],
-        otherTeam: []
-    }) {
-        this._teamsMap = {
-            "CARD": attrs.cardsTeam,
-            "LENDING": attrs.lendingTeam,
-            "OTHER": attrs.otherTeam
-        }
+const { Dealer } = require("./Dealer")
 
-        this._categories = Object.keys(this._teamsMap)
+class Scheduler {
+    constructor(teamsMap = new Map([
+        [
+            "OTHER",
+            [
+                new Dealer(),
+                new Dealer()
+            ]
+        ]
+    ])) {
+        this._teamsMap = teamsMap
 
         this._messageQueue = []
 
@@ -21,7 +21,7 @@ class Scheduler {
         let updatedQueue = []
 
         for (const message of this._messageQueue) {
-            const freeDealer = this._teamsMap[message.category].find(dealer => !dealer.isFull())
+            const freeDealer = this._teamsMap.get(message.category).find(dealer => !dealer.isFull())
 
             if (!freeDealer) {
                 updatedQueue.push(message)
@@ -48,10 +48,10 @@ class Scheduler {
             messageQueue: this._messageQueue
         }
 
-        this._categories.forEach(category => {
-            const busyDealers = this._teamsMap[category].filter(dealer => dealer.isFull()).length
+        this._teamsMap.forEach((dealers, category) => {
+            const busyDealers = dealers.filter(dealer => dealer.isFull()).length
 
-            const freeDealers = this._teamsMap[category].length - busyDealers
+            const freeDealers = dealers.length - busyDealers
 
             status[category] = {
                 busyDealers,
