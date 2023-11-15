@@ -8,36 +8,42 @@ const scheduler = new Scheduler({
         new Dealer({
             log: console.log,
             id: "Carlos",
-            teamName: "CARD"
+            teamName: "CARD",
+            delayRange: [0, 3000]
         }),
         new Dealer({
             log: console.log,
             id: "José",
-            teamName: "CARD"
+            teamName: "CARD",
+            delayRange: [1000, 2000]
         }),
         new Dealer({
             log: console.log,
             id: "Amanda",
-            teamName: "CARD"
+            teamName: "CARD",
+            delayRange: [100, 1001]
         })
     ],
     lendingTeam: [
         new Dealer({
             log: console.log,
             id: "Josefino",
-            teamName: "LENDING"
+            teamName: "LENDING",
+            delayRange: [5000, 10000]
         }),
         new Dealer({
             log: console.log,
             id: "Pedrolina",
-            teamName: "LENDING"
+            teamName: "LENDING",
+            delayRange: [0, 1000]
         })
     ],
     otherTeam: [
         new Dealer({
             log: console.log,
             id: "Eduardo",
-            teamName: "OTHER"
+            teamName: "OTHER",
+            delayRange: [0, 5000]
         })
     ]
 })
@@ -61,7 +67,7 @@ fastify.post("/message", {
                 },
                 description: {
                     type: "string",
-                    maxLength: 365
+                    maxLength: 255
                 }
             }
         }
