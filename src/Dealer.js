@@ -40,10 +40,10 @@ class Dealer {
 
     dealWithMessage() {
         if (this._messageCount < 3) {
+            this._log(`new message assigned to ${this._id} of theam ${this._teamName}, his count now at ${this._messageCount}`)
+
             this._messageCount++
         }
-
-        this._log(`new message assigned to ${this._id} of theam ${this._teamName}, his count now at ${this._messageCount}`)
     }
 
     isFull() {
