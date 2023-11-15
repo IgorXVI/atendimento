@@ -1,15 +1,7 @@
 const { Dealer } = require("./Dealer")
 
 class Scheduler {
-    constructor(teamsMap = new Map([
-        [
-            "OTHER",
-            [
-                new Dealer(),
-                new Dealer()
-            ]
-        ]
-    ])) {
+    constructor(teamsMap = new Map([["OTHER", [new Dealer()]]])) {
         this._teamsMap = teamsMap
 
         this._messageQueue = []
