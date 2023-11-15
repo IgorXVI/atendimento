@@ -8,7 +8,16 @@ class Dealer {
         this._log = attrs.log
         this._id = attrs.id
         this._teamName = attrs.teamName
-        this._delayRange = attrs.delayRange
+
+        const min = attrs.delayRange[0] || 0
+        const max = attrs.delayRange[1] || 0
+
+        if (min > max) {
+            throw new TypeError(`Value of min must be smaller than value of max! received [${min}, ${max}]`)
+        }
+
+        this._delayMin = min
+        this._delayMax = max
 
         this._messageCount = 0
 
@@ -16,14 +25,7 @@ class Dealer {
     }
 
     _randomInInterval() {
-        const min = this._delayRange[0] || 0
-        const max = this._delayRange[1] || 0
-
-        if (min > max) {
-            throw new TypeError(`Value of min must be smaller than value of max! received [${min}, ${max}]`)
-        }
-
-        return Math.floor(Math.random() * (max - min + 1) + min)
+        return Math.floor(Math.random() * (this._delayMax - this._delayMin + 1) + this._delayMin)
     }
 
     _dealingProcess() {
