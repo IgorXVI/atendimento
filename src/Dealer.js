@@ -1,3 +1,11 @@
+/*
+Classe para simular um atendente.
+Vai receber o id, o time e o intervalo de demora no construtor.
+O id e o time vão ser usados para os logs.
+O intervalo de demora vai ser usado para simular o tempo de atendimento de cada mensagem.
+Cada atendente só vai poder lidar com 3 mensagens ao mesmo tempo.
+*/
+
 class Dealer {
     constructor(attrs = {
         log: (str = "") => { },

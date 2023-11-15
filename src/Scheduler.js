@@ -1,5 +1,13 @@
 const { Dealer } = require("./Dealer")
 
+
+/*
+Classe para distribuir as mensagens entre os grupos de atendentes.
+Vai salvar as mensagens na lista "_messageQueue".
+A cada 500 milisegundos, vai conferir para cada mensagem se existe um atendente livre para lidar com ela,
+se existir, tira a mensagem da lista e avisa o objeto do atendente que ele vai lidar com uma mensasgem.
+*/
+
 class Scheduler {
     constructor(teamsMap = new Map([["OTHER", [new Dealer()]]])) {
         this._teamsMap = teamsMap
