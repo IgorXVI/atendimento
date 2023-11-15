@@ -1,0 +1,1 @@
+Documentação Swagger na rota `localhost:3000/docs`.

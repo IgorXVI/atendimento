@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "watch": "nodemon ./index.js"
   },
   "author": "Igor Tomelero de Almeida",
   "license": "ISC",
   "dependencies": {
+    "@fastify/swagger": "^8.12.0",
+    "@fastify/swagger-ui": "^1.10.1",
     "fastify": "^4.24.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
