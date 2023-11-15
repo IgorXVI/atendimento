@@ -1,0 +1,14 @@
+{
+  "name": "atendimento",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "author": "Igor Tomelero de Almeida",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.24.3"
+  }
+}
