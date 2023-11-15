@@ -1,22 +1,36 @@
 const fastify = require("fastify")()
 
 class Dealer {
-    constructor() {
+    constructor(attrs = {
+        log: (str = "") => { },
+        id: "default",
+        teamName: "OTHER"
+    }) {
+        this._log = attrs.log
+        this._id = attrs.id
+        this._teamName = attrs.teamName
+
         this._messageCount = 0
 
-        setTimeout(() => this._dealingProcess.bind(this), 5000)
+        setTimeout(this._dealingProcess.bind(this), 5000)
     }
 
     _dealingProcess() {
+        this._log(`dealer ${this._id} of team ${this._teamName} dealing...`)
+
         if (this._messageCount > 0) {
             this._messageCount--
         }
+
+        setTimeout(this._dealingProcess.bind(this), 5000)
     }
 
     dealWithMessage() {
         if (this._messageCount < 3) {
-            this_messageCount++
+            this._messageCount++
         }
+
+        this._log(`new message assigned to ${this._id} of theam ${this._teamName}, his count now at ${this._messageCount}`)
     }
 
     isFull() {
@@ -40,7 +54,7 @@ class Scheduler {
 
         this._messageQueue = []
 
-        setTimeout(() => this._distributeMessages.bind(this), 500)
+        setTimeout(this._distributeMessages.bind(this), 500)
     }
 
     _distributeMessages() {
@@ -58,6 +72,8 @@ class Scheduler {
         }
 
         this._messageQueue = updatedQueue
+
+        setTimeout(this._distributeMessages.bind(this), 500)
     }
 
     scheduleMessageDealing(message = {
@@ -68,7 +84,9 @@ class Scheduler {
     }
 
     getStatus() {
-        let status = {}
+        let status = {
+            messageQueue: this._messageQueue
+        }
 
         this._categories.forEach(category => {
             const busyDealers = this._teamsMap[category].filter(dealer => dealer.isFull()).length
@@ -86,9 +104,42 @@ class Scheduler {
 }
 
 const scheduler = new Scheduler({
-    cardsTeam: [new Dealer(), new Dealer(), new Dealer()],
-    lendingTeam: [new Dealer(), new Dealer()],
-    otherTeam: [new Dealer()]
+    cardsTeam: [
+        new Dealer({
+            log: console.log,
+            id: "Carlos",
+            teamName: "CARD"
+        }),
+        new Dealer({
+            log: console.log,
+            id: "José",
+            teamName: "CARD"
+        }),
+        new Dealer({
+            log: console.log,
+            id: "Amanda",
+            teamName: "CARD"
+        })
+    ],
+    lendingTeam: [
+        new Dealer({
+            log: console.log,
+            id: "Josefino",
+            teamName: "LENDING"
+        }),
+        new Dealer({
+            log: console.log,
+            id: "Pedrolina",
+            teamName: "LENDING"
+        })
+    ],
+    otherTeam: [
+        new Dealer({
+            log: console.log,
+            id: "Eduardo",
+            teamName: "OTHER"
+        })
+    ]
 })
 
 fastify.get("/status", async (req, res) => {
